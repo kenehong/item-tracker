@@ -1,0 +1,55 @@
+import { get, set } from 'idb-keyval'
+import type { Item, AppSettings } from './types'
+import { DEFAULT_LOCATIONS } from './types'
+
+const ITEMS_KEY = 'stuff-items'
+const SETTINGS_KEY = 'stuff-settings'
+
+export async function getItems(): Promise<Item[]> {
+  return (await get<Item[]>(ITEMS_KEY)) ?? []
+}
+
+export async function saveItems(items: Item[]): Promise<void> {
+  await set(ITEMS_KEY, items)
+}
+
+export async function addItem(item: Item): Promise<Item[]> {
+  const items = await getItems()
+  items.push(item)
+  await saveItems(items)
+  return items
+}
+
+export async function updateItem(updated: Item): Promise<Item[]> {
+  const items = await getItems()
+  const idx = items.findIndex((i) => i.id === updated.id)
+  if (idx === -1) throw new Error(`Item not found: ${updated.id}`)
+  items[idx] = updated
+  await saveItems(items)
+  return items
+}
+
+export async function deleteItem(id: string): Promise<Item[]> {
+  const items = await getItems()
+  const filtered = items.filter((i) => i.id !== id)
+  await saveItems(filtered)
+  return filtered
+}
+
+export async function getSettings(): Promise<AppSettings> {
+  const settings = await get<AppSettings>(SETTINGS_KEY)
+  return settings ?? { locations: [...DEFAULT_LOCATIONS] }
+}
+
+export async function saveSettings(settings: AppSettings): Promise<void> {
+  await set(SETTINGS_KEY, settings)
+}
+
+export async function addLocation(location: string): Promise<AppSettings> {
+  const settings = await getSettings()
+  if (!settings.locations.includes(location)) {
+    settings.locations.push(location)
+    await saveSettings(settings)
+  }
+  return settings
+}

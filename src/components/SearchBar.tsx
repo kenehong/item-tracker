@@ -23,9 +23,12 @@ export function SearchBar({ value, onChange, active, onFocus, onBack }: SearchBa
         type="button"
         onClick={onFocus}
         aria-label="Search"
-        className="text-muted text-lg p-2 -mr-2"
+        className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted hover:bg-surface active:scale-95 transition-transform"
       >
-        &#9906;
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
       </button>
     )
   }

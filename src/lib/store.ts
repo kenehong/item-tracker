@@ -5,7 +5,7 @@ import { DEFAULT_LOCATIONS } from './types'
 const ITEMS_KEY = 'stuff-items'
 const SETTINGS_KEY = 'stuff-settings'
 
-const SEED_KEY = 'stuff-seeded'
+const SEED_KEY = 'stuff-seeded-v2'
 
 const SEED_ITEMS: Item[] = [
   {

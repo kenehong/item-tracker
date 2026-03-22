@@ -6,6 +6,7 @@ import { ExpiringSection } from './components/ExpiringSection'
 import { ItemList } from './components/ItemList'
 import { ItemSheet } from './components/ItemSheet'
 import { ItemDetail } from './components/ItemDetail'
+import { ItemCard } from './components/ItemCard'
 import { Fab } from './components/Fab'
 
 export default function App() {
@@ -96,10 +97,21 @@ export default function App() {
         <>
           <ExpiringSection items={items} onItemClick={handleItemClick} />
 
-          {items.length === 0 && (
+          {items.length === 0 ? (
             <div className="text-center text-muted text-sm font-light mt-20 px-6">
               <p>No items yet.</p>
               <p className="mt-1">Tap + to add your first item.</p>
+            </div>
+          ) : (
+            <div className="px-6">
+              <h3 className="text-[11px] font-normal text-muted uppercase tracking-wider mt-8 mb-3">
+                All Items
+              </h3>
+              <div>
+                {items.map((item) => (
+                  <ItemCard key={item.id} item={item} onClick={handleItemClick} />
+                ))}
+              </div>
             </div>
           )}
         </>

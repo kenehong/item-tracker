@@ -40,6 +40,21 @@ input[type="date"] {
   font-weight: 300;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #111111;
+    --color-surface: #1a1a1a;
+    --color-border: #2a2a2a;
+    --color-text: #f0f0f0;
+    --color-muted: #777777;
+    --color-primary: #f0f0f0;
+    --color-danger: #fc8181;
+    --color-danger-light: #2d1b1b;
+    --color-warning: #fbd38d;
+    --color-warning-light: #2d2517;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

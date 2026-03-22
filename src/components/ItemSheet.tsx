@@ -185,7 +185,7 @@ export function ItemSheet({ open, onClose, onSave, editItem, locations }: ItemSh
         onClick={handleSubmit}
         disabled={!name.trim() || (!location && !newLocation.trim())}
         className="
-          w-full h-12 rounded-default bg-primary text-white
+          w-full h-12 rounded-default bg-primary text-white dark:text-black
           text-[15px] font-normal tracking-wider mt-6
           disabled:opacity-40 active:opacity-80
           transition-opacity

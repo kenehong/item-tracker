@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import type { Item, Category } from '../lib/types'
-import { CATEGORIES } from '../lib/types'
 import { BottomSheet } from './BottomSheet'
 import { Chip } from './Chip'
 
@@ -80,23 +79,6 @@ export function ItemSheet({ open, onClose, onSave, editItem, locations }: ItemSh
             focus:border-primary/30
           "
         />
-      </div>
-
-      {/* Category */}
-      <div className="mb-5">
-        <label className="block text-xs font-normal text-muted uppercase tracking-wider mb-2">
-          Category
-        </label>
-        <div className="flex gap-2 flex-wrap">
-          {CATEGORIES.map((cat) => (
-            <Chip
-              key={cat.value}
-              label={cat.label}
-              selected={category === cat.value}
-              onClick={() => setCategory(cat.value)}
-            />
-          ))}
-        </div>
       </div>
 
       {/* Location */}

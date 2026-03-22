@@ -13,7 +13,6 @@ export default function App() {
 
   const [searchActive, setSearchActive] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [locationFilter, setLocationFilter] = useState<string | null>(null)
 
   const [sheetOpen, setSheetOpen] = useState(false)
   const [editItem, setEditItem] = useState<Item | null>(null)
@@ -46,7 +45,6 @@ export default function App() {
   const handleBack = useCallback(() => {
     setSearchActive(false)
     setSearchQuery('')
-    setLocationFilter(null)
   }, [])
 
   if (loading) {
@@ -64,25 +62,34 @@ export default function App() {
       {/* Top bar */}
       <div className="flex justify-between items-center px-6 pt-5">
         <h1 className="text-[28px] font-light tracking-tight">Stuff</h1>
+        {!isSearching && (
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            active={false}
+            onFocus={() => setSearchActive(true)}
+            onBack={handleBack}
+          />
+        )}
       </div>
 
-      {/* Search */}
-      <SearchBar
-        value={searchQuery}
-        onChange={setSearchQuery}
-        active={isSearching}
-        onFocus={() => setSearchActive(true)}
-        onBack={handleBack}
-      />
+      {/* Expanded search */}
+      {isSearching && (
+        <SearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          active={true}
+          onFocus={() => setSearchActive(true)}
+          onBack={handleBack}
+        />
+      )}
 
       {/* Content */}
       {isSearching ? (
         <ItemList
           items={items}
           query={searchQuery}
-          locations={settings.locations}
-          locationFilter={locationFilter}
-          onLocationFilter={setLocationFilter}
+          locationFilter={null}
           onItemClick={handleItemClick}
         />
       ) : (

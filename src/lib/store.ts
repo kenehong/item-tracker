@@ -5,7 +5,48 @@ import { DEFAULT_LOCATIONS } from './types'
 const ITEMS_KEY = 'stuff-items'
 const SETTINGS_KEY = 'stuff-settings'
 
+const SEED_KEY = 'stuff-seeded'
+
+const SEED_ITEMS: Item[] = [
+  {
+    id: 'seed-1',
+    name: 'Target Gift Card',
+    category: 'other',
+    location: 'Drawer',
+    createdAt: '2026-03-22T10:00:00.000Z',
+    updatedAt: '2026-03-22T10:00:00.000Z',
+  },
+  {
+    id: 'seed-2',
+    name: 'Kids Birth Certificate',
+    category: 'other',
+    location: 'Storage',
+    createdAt: '2026-03-22T10:00:00.000Z',
+    updatedAt: '2026-03-22T10:00:00.000Z',
+  },
+  {
+    id: 'seed-3',
+    name: 'Kids Tylenol',
+    category: 'medicine',
+    location: 'Drawer',
+    expiryDate: '2026-09-15',
+    createdAt: '2026-03-22T10:00:00.000Z',
+    updatedAt: '2026-03-22T10:00:00.000Z',
+  },
+]
+
 export async function getItems(): Promise<Item[]> {
+  const seeded = await get<boolean>(SEED_KEY)
+  if (!seeded) {
+    const existing = (await get<Item[]>(ITEMS_KEY)) ?? []
+    if (existing.length === 0) {
+      await set(ITEMS_KEY, SEED_ITEMS)
+      await set(SEED_KEY, true)
+      return SEED_ITEMS
+    }
+    await set(SEED_KEY, true)
+    return existing
+  }
   return (await get<Item[]>(ITEMS_KEY)) ?? []
 }
 

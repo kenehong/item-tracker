@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import type { Item } from '../lib/types'
-import { CATEGORIES } from '../lib/types'
 import { getDDay, getDDayLabel, getUrgency, formatDate } from '../lib/utils'
 import { BottomSheet } from './BottomSheet'
 
@@ -20,8 +19,6 @@ export function ItemDetail({ item, open, onClose, onEdit, onDelete }: ItemDetail
   const urgency = getUrgency(item.expiryDate)
   const dday = item.expiryDate ? getDDay(item.expiryDate) : null
   const ddayLabel = dday !== null ? getDDayLabel(dday) : null
-  const categoryLabel = CATEGORIES.find((c) => c.value === item.category)?.label ?? item.category
-
   function handleDelete() {
     if (!confirmDelete) {
       setConfirmDelete(true)
@@ -52,7 +49,6 @@ export function ItemDetail({ item, open, onClose, onEdit, onDelete }: ItemDetail
       </div>
 
       <div>
-        <DetailRow label="Category" value={categoryLabel} />
         <DetailRow label="Location" value={item.location} />
         {item.expiryDate && (
           <DetailRow

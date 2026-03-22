@@ -15,7 +15,7 @@ export function Chip({ label, selected, dashed, onClick }: ChipProps) {
         rounded-chip transition-colors duration-150 min-h-[36px]
         ${
           selected
-            ? 'bg-primary text-white border border-primary'
+            ? 'bg-primary text-white dark:text-black border border-primary'
             : dashed
               ? 'bg-surface text-muted border border-dashed border-border'
               : 'bg-surface text-muted border border-border'

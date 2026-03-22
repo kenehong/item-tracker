@@ -25,7 +25,7 @@ export function ItemList({
   return (
     <div>
       {/* Filter chips */}
-      <div className="flex gap-2 px-6 mt-4 mb-2 overflow-x-auto">
+      <div className="flex gap-2 px-6 mt-4 mb-2 overflow-x-auto scrollbar-none">
         <Chip label="All" selected={!locationFilter} onClick={() => onLocationFilter(null)} />
         {locations.map((loc) => (
           <Chip

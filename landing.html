@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stuffed In — Know where your stuff lives</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0e0e0e;
+      --bg-elevated: #1a1a1a;
+      --border: #2a2a2a;
+      --text-primary: #f0f0f0;
+      --text-secondary: #999;
+      --text-tertiary: #666;
+      --accent: #fff;
+      --accent-text: #0e0e0e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: url('bg-option-2.png') center/cover no-repeat;
+    }
+
+    .page::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(14,14,14,0.65) 0%,
+        rgba(14,14,14,0.8) 40%,
+        rgba(14,14,14,0.95) 70%,
+        rgba(14,14,14,1) 100%
+      );
+      pointer-events: none;
+    }
+
+    .page > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 40px;
+      gap: 28px;
+    }
+
+    .hero-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .hero-title {
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 360px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--accent-text);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 12px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .hero-cta:hover { background: #e0e0e0; }
+    .hero-cta:active { background: #ccc; transform: scale(0.97); }
+    .hero-cta svg { width: 18px; height: 18px; }
+
+    .hero-meta {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    /* ---- VIDEO / SCREENSHOTS ---- */
+    .video-section {
+      padding: 64px 24px 96px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .video-section h2 {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .phone-carousel {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .phone-frame {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .phone-frame img {
+      width: 220px;
+      border-radius: 20px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+    .phone-frame img:hover { transform: scale(1.03); }
+
+    .phone-frame span {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    /* mobile scroll */
+    @media (max-width: 720px) {
+      .phone-carousel {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        justify-content: flex-start;
+        padding: 0 calc(50vw - 110px);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .phone-carousel::-webkit-scrollbar { display: none; }
+      .phone-frame { scroll-snap-align: center; }
+      .phone-frame img { width: 200px; }
+    }
+
+    /* ---- HOW IT WORKS ---- */
+    .how-section {
+      padding: 40px 24px 48px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-num {
+      font-size: 40px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      line-height: 1;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 12px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    footer a:hover { color: var(--text-primary); text-decoration: underline; }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+    /* ---- FADE IN ---- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+  <!-- HERO -->
+  <section class="hero">
+    <img src="icon-1024.png" alt="Stuffed In app icon" class="hero-icon">
+    <h1 class="hero-title">Know where your<br>stuff lives.</h1>
+    <p class="hero-subtitle">Track locations. Watch expiry dates.<br>Simple. Offline. Instant.</p>
+    <a href="#" class="hero-cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on the App Store
+    </a>
+    <p class="hero-meta">Free · No account required · iPhone</p>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Add your item</div>
+        <p class="step-desc">Tap +, type a name, pick a location. Done.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Set an expiry</div>
+        <p class="step-desc">Toggle it on, pick a date. The countdown starts automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Find it later</div>
+        <p class="step-desc">Scroll or search. Every item shows its location and days left.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>&copy; 2026 Stuffed In</span>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

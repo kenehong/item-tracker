@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -13,8 +12,8 @@ export default defineConfig(({ mode }) => {
     build: {
       rollupOptions: {
         input: {
-          main: resolve(__dirname, 'index.html'),
-          landing: resolve(__dirname, 'landing.html'),
+          main: 'index.html',
+          landing: 'landing.html',
         },
       },
     },
